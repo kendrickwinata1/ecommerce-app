@@ -5,9 +5,9 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from django.contrib.auth.models import User
-from .models import Product
-from .products import products
-from .serializer import ProductSerializer, UserSerializer, UserSerializerWithToken
+from base.models import Product
+from base.products import products
+from base.serializer import ProductSerializer, UserSerializer, UserSerializerWithToken
 
 # Create your views here.
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -63,11 +63,32 @@ def registerUser(request):
         # django signals combine senders and receiver.
 
         serializer = UserSerializerWithToken(user, many=False)
+        print(serializer.data)
         return Response(serializer.data)
 
     except:
         message = {'detail': " User with this email already exists"}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+@ api_view(['PUT'])
+@ permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    # give authenticated user
+    serializer = UserSerializerWithToken(user, many=False)
+
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+
+    if data['password'] != '':
+        user.password = make_password(data['password'])
+
+    user.save()
+
+    return Response(serializer.data)
 
 
 @ api_view(['GET'])
@@ -76,6 +97,7 @@ def getUserProfile(request):
     user = request.user
     # give authenticated user
     serializer = UserSerializer(user, many=False)
+    print(serializer.data)
     return Response(serializer.data)
 
 
@@ -84,24 +106,4 @@ def getUserProfile(request):
 def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
-
-
-@ api_view(['GET'])
-def getProducts(request):
-    products = Product.objects.all()
-    serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
-
-
-@ api_view(['GET'])
-def getProduct(request, pk):
-    product = Product.objects.get(_id=pk)
-    serializer = ProductSerializer(product, many=False)
-    # product_detail = None
-    # for product in products:
-    #     if product['_id'] == pk:
-    #         product_detail = product
-    #         break
-
     return Response(serializer.data)
