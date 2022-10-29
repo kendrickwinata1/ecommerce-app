@@ -68,7 +68,9 @@ def addOrderItems(request):
 @permission_classes([IsAuthenticated])
 def getMyOrders(request):
     user = request.user
+    # get all child order element of user
     orders = user.order_set.all()
+    print(orders)
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
 
@@ -108,7 +110,7 @@ def updateOrderToPaid(request, pk):
     order.paidAt = datetime.now()
     order.save()
 
-    return Response('Order was paid')
+    return Response('Order paid')
 
 
 @api_view(['PUT'])
