@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-import os
-from datetime import timedelta
 from pathlib import Path
+from datetime import timedelta
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rw@hzg*r1dps)f@u(3sl%f2id-1oe+^qp9qb2&k1@$jv7*b3ez'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
                  'caspershop.herokuapp.com', 'herokucdn.com']
@@ -137,7 +140,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'casper_ecommerce',
         'USER': 'kendrickwinata',
-        'PASSWORD': 'A0158618U-nuss',
+        'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': 'casper-ecommerce.cdxyggyoiarx.ap-southeast-1.rds.amazonaws.com',
         'PORT': '5432',
     }
@@ -204,7 +207,7 @@ if os.getcwd() == '/app':
 AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = 'AKIASVXVKAG7KTKHTGHR'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 AWS_STORAGE_BUCKET_NAME = 'casper-ecommerce'
