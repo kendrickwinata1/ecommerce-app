@@ -122,13 +122,17 @@ function Cartpage() {
 						<ListGroup.Item>
 							<h2>
 								Subtotal (
-								{cart.reduce((accumulator, item) => accumulator + item.qty, 0)})
-								items
+								{cart.reduce(
+									(accumulator, item) => accumulator + Number(item.qty),
+									0
+								)}
+								) items
 							</h2>
 							$
 							{cart
 								.reduce(
-									(accumulator, item) => accumulator + item.qty * item.price,
+									(accumulator, item) =>
+										accumulator + Number(item.qty) * Number(item.price),
 									0
 								)
 								.toFixed(2)}

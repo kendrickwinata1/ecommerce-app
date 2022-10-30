@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Header from "./components/partials/Header.jsx";
 import Footer from "./components/partials/Footer.jsx";
 import Productpage from "./components/pages/Productpage.jsx";
@@ -16,7 +16,7 @@ import OrderPage from "./components/pages/OrderPage.jsx";
 
 function App() {
 	return (
-		<HashRouter>
+		<BrowserRouter>
 			<Header />
 			<main className="py-3">
 				<Container>
@@ -36,7 +36,7 @@ function App() {
 				</Container>
 			</main>
 			<Footer />
-		</HashRouter>
+		</BrowserRouter>
 	);
 }
 

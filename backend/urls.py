@@ -24,8 +24,8 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
-    # re_path('(^(?!(api|admin|static|images)).*$)',
-    #         TemplateView.as_view(template_name='index.html')),
+    re_path('(^(?!(api|admin|static|images)).*$)',
+            TemplateView.as_view(template_name='index.html')),
     path('api/', include('base.urls.product_urls')),
     path('api/', include('base.urls.user_urls')),
     path('api/', include('base.urls.order_urls')),
