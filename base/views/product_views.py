@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
@@ -5,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from django.contrib.auth.models import User
-from base.models import Product
+from base.models import Product, Review
 from base.products import products
 from base.serializer import ProductSerializer, UserSerializer, UserSerializerWithToken
 
@@ -35,3 +36,45 @@ def getProduct(request, pk):
     #         break
 
     return Response(serializer.data)
+
+
+@ api_view(['POST'])
+@ permission_classes([IsAuthenticated])
+def createProductReview(request, pk):
+    user = request.user
+    product = Product.objects.get(_id=pk)
+    data = request.data
+
+    # case 1_review already exists
+    alreadyExists = product.review_set.filter(user=user).exists()
+    if alreadyExists:
+        content = {'details': 'You have already reviewed this product'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    # case 2_no rating or 0. inform to submit rating
+    elif data['rating'] == 0:
+        content = {'details': 'Please select rating'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    # case 3_create review
+    else:
+        review = Review.objects.create(
+            user=user,
+            product=product,
+            name=user.first_name,
+            rating=data['rating'],
+            comment=data['comment'],
+        )
+
+        reviews = product.review_set.all()
+        print(reviews)
+        product.numReviews = len(reviews)
+
+        total = 0
+        for i in reviews:
+            total += i.rating
+
+        product.rating = total / len(reviews)
+        product.save()
+
+        return Response('Review Added')
