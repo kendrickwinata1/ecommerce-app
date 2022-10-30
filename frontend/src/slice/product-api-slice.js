@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
 	reducerPath: "productData",
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${process.env.REACT_APP_BASE_BACKEND_URL}`,
+		baseUrl: `https://caspershop.herokuapp.com`,
+		// baseUrl: `https://localhost:8000`,
 	}),
 	endpoints: (builder) => ({
 		getProductData: builder.query({
