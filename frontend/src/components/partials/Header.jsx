@@ -12,6 +12,7 @@ import Message from "../features/Message";
 import Loader from "../features/Loader";
 import { resetMyOrderState } from "../../slice/my-order-slice";
 import { listMyOrder } from "../../actions/myOrderActions";
+import SearchBox from "../features/SearchBox";
 
 function Header() {
 	const { userInfo, userToken, error, loading } = useSelector(
@@ -58,6 +59,7 @@ function Header() {
 
 							<Navbar.Toggle aria-controls="basic-navbar-nav" />
 							<Navbar.Collapse id="basic-navbar-nav">
+								<SearchBox />
 								<Nav className="ml-auto">
 									<LinkContainer to="/cart">
 										<Nav.Link>

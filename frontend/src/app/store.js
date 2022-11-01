@@ -9,6 +9,7 @@ import userReducer from "../slice/user-slice";
 import orderReducer from "../slice/order-slice";
 import myOrderReducer from "../slice/my-order-slice";
 import orderPayReducer from "../slice/order-pay-slice";
+import reviewReducer from "../slice/review-slice";
 
 export const store = configureStore({
 	reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
 		order: orderReducer,
 		myOrder: myOrderReducer,
 		orderPay: orderPayReducer,
+		review: reviewReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(

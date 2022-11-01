@@ -5,9 +5,25 @@ import { Row, Col } from "react-bootstrap";
 import Product from "../products/Product";
 import Loader from "../features/Loader";
 import { useGetProductDataQuery } from "../../slice/product-api-slice";
+import queryString from "query-string";
 
 function Homepage() {
-	const { data, error, isLoading } = useGetProductDataQuery();
+	const queryParams = queryString.parse(window.location.search);
+
+	let keyword = "";
+
+	if (queryParams.keyword) {
+		keyword = `?keyword=${queryParams.keyword}`;
+		console.log(keyword);
+	} else {
+		keyword = "";
+	}
+
+	useEffect(() => {
+		// window.location.reload();
+	}, [queryParams.keyword]);
+
+	const { data, error, isLoading } = useGetProductDataQuery(keyword);
 
 	console.log(data);
 

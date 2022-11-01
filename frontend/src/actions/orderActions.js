@@ -37,7 +37,7 @@ export const createOrder = createAsyncThunk(
 
 export const getOrderDetail = createAsyncThunk(
 	// action type string
-	"order/createOrder",
+	"order/getOrder",
 	// callback function
 	async (orderId, { getState, rejectWithValue }) => {
 		try {
@@ -71,7 +71,7 @@ export const getOrderDetail = createAsyncThunk(
 
 export const payOrderAction = createAsyncThunk(
 	// action type string
-	"order/createOrder",
+	"order/payOrder",
 	// callback function
 	async ({ orderId, paymentResult }, { getState, rejectWithValue }) => {
 		try {
