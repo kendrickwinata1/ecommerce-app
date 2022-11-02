@@ -53,14 +53,18 @@ function Header() {
 				<>
 					<Navbar bg="light" variant="light" expand="lg" collapseOnSelect>
 						<Container>
-							<LinkContainer to="/">
+							<LinkContainer
+								to="/"
+								onClick={() => (window.location.href = "/")}>
 								<Navbar.Brand>Casper</Navbar.Brand>
 							</LinkContainer>
 
 							<Navbar.Toggle aria-controls="basic-navbar-nav" />
-							<Navbar.Collapse id="basic-navbar-nav">
-								<SearchBox />
-								<Nav className="ml-auto">
+							<SearchBox />
+							<Navbar.Collapse
+								id="basic-navbar-nav"
+								className="justify-content-end">
+								<Nav>
 									<LinkContainer to="/cart">
 										<Nav.Link>
 											<i className="fas fa-shopping-cart"></i>Cart

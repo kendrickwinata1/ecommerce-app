@@ -19,8 +19,8 @@ import { useGetProductDetailQuery } from "../../slice/product-detail-api-slice";
 import {
 	createProductReview,
 	listProductDetail,
-} from "../../actions/reviewActions";
-import { resetReviewState } from "../../slice/review-slice";
+} from "../../actions/productActions";
+import { resetProductState } from "../../slice/product-slice";
 
 function Productpage() {
 	const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function Productpage() {
 
 	const userInfo = useSelector((state) => state.user.userInfo);
 
-	const reviewDetail = useSelector((state) => state.review);
+	const reviewDetail = useSelector((state) => state.product);
 	const {
 		loading: loadingProductReview,
 		error: errorProductReview,
@@ -50,10 +50,6 @@ function Productpage() {
 			setComment("");
 		}
 	}, [successProductReview]);
-
-	useEffect(() => {
-		dispatch(resetReviewState());
-	}, []);
 
 	const { data, error, isLoading } = useGetProductDetailQuery(productID);
 

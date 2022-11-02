@@ -1,6 +1,40 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const listProducts = createAsyncThunk(
+	"product/listProduct",
+	async ({ keyword, pageQuery }, { getState, rejectWithValue }) => {
+		try {
+			// make request to backend
+			console.log(keyword);
+			console.log(pageQuery);
+
+			if (keyword && pageQuery) {
+				const { data } = await axios.get(
+					`/api/products/?${keyword}&${pageQuery}`
+				);
+				return data;
+			} else if (keyword && !pageQuery) {
+				const { data } = await axios.get(`/api/products/?${keyword}`);
+				return data;
+			} else if (!keyword && pageQuery) {
+				const { data } = await axios.get(`/api/products/?${pageQuery}`);
+				return data;
+			} else {
+				const { data } = await axios.get(`/api/products/`);
+				return data;
+			}
+		} catch (error) {
+			// return custom error message from API if any
+			if (error.response && error.response.data.message) {
+				return rejectWithValue(error.response.data.message);
+			} else {
+				return rejectWithValue(error.message);
+			}
+		}
+	}
+);
+
 export const listProductDetail = createAsyncThunk(
 	"review/createReview",
 	async (productID, { getState, rejectWithValue }) => {
@@ -13,10 +47,8 @@ export const listProductDetail = createAsyncThunk(
 		} catch (error) {
 			// return custom error message from API if any
 			if (error.response && error.response.data.message) {
-				console.log("error line 31");
 				return rejectWithValue(error.response.data.message);
 			} else {
-				console.log("error line 32");
 				return rejectWithValue(error.message);
 			}
 		}

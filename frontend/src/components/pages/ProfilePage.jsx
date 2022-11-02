@@ -10,7 +10,7 @@ import { registerUser, userLogin } from "../../actions/userActions";
 import Message from "../features/Message";
 import { getUserDetails, updateUserProfile } from "../../actions/userActions";
 import { listMyOrder } from "../../actions/myOrderActions";
-// import { resetOrderState } from "../../slice/order-slice";
+
 // import { getOrderDetail } from "../../actions/orderActions";
 
 function ProfilePage() {
@@ -33,6 +33,10 @@ function ProfilePage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		dispatch(listMyOrder());
+	}, []);
+
+	useEffect(() => {
 		if (!userInfo) {
 			navigate("/login");
 		} else {
@@ -42,11 +46,6 @@ function ProfilePage() {
 			console.log("setemail");
 		}
 	}, [userInfo]);
-
-	useEffect(() => {
-		console.log("listOrder");
-		dispatch(listMyOrder());
-	}, []);
 
 	// const refreshPage = () => {
 	// 	window.location.reload(false);
@@ -70,12 +69,6 @@ function ProfilePage() {
 			setMessage("");
 		}
 	};
-
-	// const resetState = () => {
-	// 	console.log("reset state");
-	// 	dispatch(resetOrderState());
-	// 	dispatch(getOrderDetail(orderId));
-	// };
 
 	return (
 		<Row>
