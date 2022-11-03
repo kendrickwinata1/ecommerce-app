@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
 	createProductReview,
 	listProductDetail,
+	listTopProducts,
 	listProducts,
 } from "../actions/productActions";
 
 const initialState = {
 	createReview: {},
+	topProducts: {},
 	getProduct: {},
 	products: {},
 	pages: {},
@@ -14,6 +16,9 @@ const initialState = {
 	loading: true,
 	error: null,
 	success: false,
+	loadingTopProduct: true,
+	errorTopProduct: null,
+	successTopProduct: false,
 	reset: "",
 };
 
@@ -21,7 +26,17 @@ const productSlice = createSlice({
 	name: "product",
 	initialState,
 	reducers: {
-		resetProductState: () => initialState,
+		resetProductState: (state) => {
+			state.success = false;
+			state.loading = true;
+			state.error = null;
+			state.products = {};
+			state.page = {};
+			state.pages = {};
+		},
+		resetProductReviewState: (state) => {
+			state.success = false;
+		},
 	},
 	extraReducers: {
 		[listProducts.pending]: (state) => {
@@ -35,6 +50,21 @@ const productSlice = createSlice({
 			state.products = payload.products;
 			state.page = payload.page;
 			state.pages = payload.pages;
+		},
+		[listTopProducts.rejected]: (state, { payload }) => {
+			state.loadingTopProduct = false;
+			state.errorTopProduct = payload;
+			state.successTopProduct = false;
+		},
+		[listTopProducts.pending]: (state) => {
+			state.loadingTopProduct = true;
+			state.errorTopProduct = null;
+			state.successTopProduct = false;
+		},
+		[listTopProducts.fulfilled]: (state, { payload }) => {
+			state.loadingTopProduct = false;
+			state.successTopProduct = true;
+			state.topProducts = payload;
 		},
 		[listProducts.rejected]: (state, { payload }) => {
 			state.loading = false;
@@ -59,6 +89,7 @@ const productSlice = createSlice({
 	},
 });
 
-export const { resetProductState } = productSlice.actions;
+export const { resetProductState, resetProductReviewState } =
+	productSlice.actions;
 
 export default productSlice.reducer;

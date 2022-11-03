@@ -1,10 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
-
-import { Row, Col, Form } from "react-bootstrap";
+import { useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
 import Product from "../products/Product";
 import Loader from "../features/Loader";
-import { useGetProductDataQuery } from "../../slice/product-api-slice";
+import ProductCarousel from "../features/ProductCarousel";
 import queryString from "query-string";
 import { listProducts } from "../../actions/productActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,7 +54,11 @@ function Homepage() {
 
 	return (
 		<div>
-			<h1>Latest Products (updated)</h1>
+			<Row className="justify-content-center">
+				{!(keyword || category) && <ProductCarousel />}
+			</Row>
+
+			<h1 style={{ marginTop: "15px" }}>Featured products</h1>
 
 			{error ? (
 				<>Oh no, there was an error</>

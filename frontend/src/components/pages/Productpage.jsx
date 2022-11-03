@@ -20,7 +20,7 @@ import {
 	createProductReview,
 	listProductDetail,
 } from "../../actions/productActions";
-import { resetProductState } from "../../slice/product-slice";
+import { resetProductReviewState } from "../../slice/product-slice";
 
 function Productpage() {
 	const dispatch = useDispatch();
@@ -44,6 +44,10 @@ function Productpage() {
 	const productID = params.id;
 
 	useEffect(() => {
+		dispatch(resetProductReviewState());
+	}, []);
+
+	useEffect(() => {
 		if (successProductReview) {
 			console.log("review success");
 			setRating(0);
@@ -64,8 +68,7 @@ function Productpage() {
 			rating,
 			comment,
 		};
-		console.log({ productID, review });
-		console.log(review);
+
 		dispatch(createProductReview({ productID, review }));
 	};
 

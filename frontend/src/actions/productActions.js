@@ -57,12 +57,33 @@ export const listProductsByCategory = createAsyncThunk(
 	}
 );
 
+export const listTopProducts = createAsyncThunk(
+	"products/listTopProduct",
+	async (arg, { getState, rejectWithValue }) => {
+		try {
+			// make request to backend
+			console.log("top product triggered");
+			const { data } = await axios.get(`/api/products/top/`);
+			console.log(data);
+
+			return data;
+		} catch (error) {
+			// return custom error message from API if any
+			if (error.response && error.response.data.message) {
+				return rejectWithValue(error.response.data.message);
+			} else {
+				return rejectWithValue(error.message);
+			}
+		}
+	}
+);
+
 export const listProductDetail = createAsyncThunk(
 	"review/createReview",
 	async (productID, { getState, rejectWithValue }) => {
 		try {
 			// make request to backend
-			const { data } = await axios.get(`/api/products/${productID}`);
+			const { data } = await axios.get(`/api/products/${productID}/`);
 			console.log(data);
 
 			return data;

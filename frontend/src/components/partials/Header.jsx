@@ -90,7 +90,7 @@ function Header() {
 								onChange={(e) => setCategory(e.target.value)}
 								variant="success"
 								aria-label="Default select example"
-								style={{ width: "10vw", margin: "auto 0px" }}>
+								style={{ width: "10vw", margin: "auto 0px", color: "grey" }}>
 								<option>
 									{categoryValue ? categoryValue : "Select Category"}
 								</option>
