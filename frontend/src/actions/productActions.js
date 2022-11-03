@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const listProducts = createAsyncThunk(
 	"product/listProduct",
-	async ({ keyword, pageQuery }, { getState, rejectWithValue }) => {
+	async ({ keyword, pageQuery, category }, { getState, rejectWithValue }) => {
 		try {
 			// make request to backend
 			console.log(keyword);
@@ -20,10 +20,32 @@ export const listProducts = createAsyncThunk(
 			} else if (!keyword && pageQuery) {
 				const { data } = await axios.get(`/api/products/?${pageQuery}`);
 				return data;
+			} else if (category) {
+				const { data } = await axios.get(`/api/products/?${category}`);
+				return data;
 			} else {
 				const { data } = await axios.get(`/api/products/`);
 				return data;
 			}
+		} catch (error) {
+			// return custom error message from API if any
+			if (error.response && error.response.data.message) {
+				return rejectWithValue(error.response.data.message);
+			} else {
+				return rejectWithValue(error.message);
+			}
+		}
+	}
+);
+
+export const listProductsByCategory = createAsyncThunk(
+	"product/listProductByCategory",
+	async ({ category }, { getState, rejectWithValue }) => {
+		try {
+			// make request to backend
+
+			const { data } = await axios.get(`/api/products/?${category}`);
+			return data;
 		} catch (error) {
 			// return custom error message from API if any
 			if (error.response && error.response.data.message) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import Product from "../products/Product";
 import Loader from "../features/Loader";
 import { useGetProductDataQuery } from "../../slice/product-api-slice";
@@ -36,11 +36,20 @@ function Homepage() {
 		pageQuery = "";
 	}
 
+	let category = "";
+
+	if (queryParams.category) {
+		category = `category=${queryParams.category}`;
+		console.log(category);
+	} else {
+		category = "";
+	}
+
 	useEffect(() => {
 		dispatch(resetProductState());
 		console.log("useEffect triggered");
-		dispatch(listProducts({ keyword, pageQuery }));
-	}, [keyword, dispatch, pageQuery]);
+		dispatch(listProducts({ keyword, pageQuery, category }));
+	}, [keyword, dispatch, pageQuery, category]);
 
 	console.log(products);
 

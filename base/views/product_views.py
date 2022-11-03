@@ -25,11 +25,15 @@ def getProducts(request):
     if query == None:
         query = ''
 
+    category = request.query_params.get('category')
+    if category == None or category == 'All':
+        category = ''
+
     products = Product.objects.filter(
-        name__icontains=query).order_by('-createdAt')
+        name__icontains=query, category__icontains=category).order_by('-createdAt')
 
     page = request.query_params.get('page')
-    paginator = Paginator(products, 2)
+    paginator = Paginator(products, 8)
 
     try:
         products = paginator.page(page)
