@@ -20,7 +20,7 @@ function SearchBox() {
 	};
 
 	return (
-		<Form onSubmit={submitHandler} className="d-flex">
+		<Form onSubmit={submitHandler}>
 			<Row>
 				<Col>
 					<Form.Control
