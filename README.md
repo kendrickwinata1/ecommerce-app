@@ -15,6 +15,37 @@ An ecommerce website which allow user to buy product online.
 - Heroku (Client-Server deployment)
 - PayPal / credit card integration
 
-![image](../main/static/images/Flow.png | width=200)
+# Frontend/Backend Flow
 
-![image](../main/static/images/Backend.png | width=500)
+![image](../main/static/images/Flow.png)
+
+# SQL diagram
+
+![image](../main/static/images/Backend.png)
+
+# Features
+
+- Login authentication and authorization
+- List of products with review and rating
+- Product details
+- Pagination
+- Search feature
+- Filter by category feature
+- Shopping cart
+- Paypal integrated payment
+- Update user profile
+- Login & logout
+- Send email upon registration and payment
+
+# Challenges
+
+- Redux toolkit - A lot of documentations to read. Setup are confusing at first and a lot of trial and error.
+- Django - Steep learning curve as it is totally different with Express. Face a lot of dead end during the process.
+- Deployment - Steps to deploy django apps are confusing. Took me 2 whole weekend day to deploy.
+
+# Things to do
+
+- Implement email verification on registration
+- Implement firebase sign in authentication
+- Create admin page for front-end
+- Refactor the code
