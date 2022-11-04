@@ -9,6 +9,10 @@ from base.models import Product
 from base.products import products
 from base.serializer import ProductSerializer, UserSerializer, UserSerializerWithToken
 
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+
 # Create your views here.
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -64,6 +68,20 @@ def registerUser(request):
 
         serializer = UserSerializerWithToken(user, many=False)
         print(serializer.data)
+
+# send email
+        mail_subject = 'Your account has been activated'
+        message = render_to_string('register_success_email.html', {
+            'name': data['name'],
+        })
+        to_email = data['email']
+        print(to_email)
+        print(message)
+        print(settings.EMAIL_HOST_USER)
+        send_email = EmailMessage(mail_subject, message,
+                                  settings.EMAIL_HOST_USER, to=[to_email])
+        send_email.send()
+
         return Response(serializer.data)
 
     except:

@@ -7,6 +7,10 @@ from rest_framework.response import Response
 from base.models import Product, Order, OrderItem, ShippingAddress
 from base.serializer import ProductSerializer, OrderSerializer
 
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+
 from rest_framework import status
 from datetime import datetime
 
@@ -109,6 +113,18 @@ def updateOrderToPaid(request, pk):
     order.isPaid = True
     order.paidAt = datetime.now()
     order.save()
+
+    mail_subject = 'Thank you for your order!'
+    message = render_to_string('order_received_email.html', {
+        'user': request.user,
+    })
+    to_email = request.user.email
+    print(to_email)
+    print(message)
+    print(settings.EMAIL_HOST_USER)
+    send_email = EmailMessage(mail_subject, message,
+                              settings.EMAIL_HOST_USER, to=[to_email])
+    send_email.send()
 
     return Response('Order paid')
 

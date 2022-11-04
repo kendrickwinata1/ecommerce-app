@@ -7,7 +7,7 @@ import { payOrderAction } from "../actions/orderActions";
 
 const initialState = {
 	orderPay: {},
-	loadingPay: true,
+	loadingPay: false,
 	errorPay: null,
 	successPay: false,
 	reset: "",
