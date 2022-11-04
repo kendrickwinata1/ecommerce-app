@@ -217,6 +217,6 @@ AWS_STORAGE_BUCKET_NAME = 'casper-ecommerce'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.office365.com'
-EMAIL_HOST_USER = 'casperheroku@outlook.com'
+EMAIL_HOST_USER = 'casperheroku02@outlook.com'
 EMAIL_HOST_PASSWORD = 'generalAssembly'
 EMAIL_PORT = 587
