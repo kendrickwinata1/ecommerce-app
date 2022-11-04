@@ -41,6 +41,7 @@ An ecommerce website which allow user to buy product online.
 
 - Redux toolkit - A lot of documentations to read. Setup are confusing at first and a lot of trial and error.
 - Django - Steep learning curve as it is totally different with Express. Face a lot of dead end during the process.
+- Postgres deployment to AWS server.
 - Deployment - Steps to deploy django apps are confusing. Took me 2 whole weekend day to deploy.
 
 # Things to do
