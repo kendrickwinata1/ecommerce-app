@@ -138,17 +138,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'casper_ecommerce',
+        'NAME': 'caspershop',
         'USER': 'kendrickwinata',
         'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': 'casper-ecommerce.cdxyggyoiarx.ap-southeast-1.rds.amazonaws.com',
+        'HOST': os.environ.get('DB_ENDPOINT'),
         'PORT': '5432',
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
