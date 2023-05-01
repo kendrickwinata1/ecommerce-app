@@ -139,7 +139,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'caspershop',
-        'USER': 'kendrickwinata',
+        'USER': 'andyjohnson',
         'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': os.environ.get('DB_ENDPOINT'),
         'PORT': '5432',
